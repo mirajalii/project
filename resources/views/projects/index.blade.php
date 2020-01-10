@@ -2,25 +2,26 @@
 <head>
 
     <title>Document</title>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 </head>
 
 <body>
-
-    <h1>Projects</h1>    
-    <ul>
-        
-        @foreach ($projects as $project)
+    <div class="container">
+        <h1 class="title">Projects</h1>    
+        <ul>
             
-            <li>
-               <a href="/projects/{{ $project->id }}">
-                    {{ $project->title }} 
-                </a>
-            </li>
+            @foreach ($projects as $project)
+                
+                <li>
+                <a href="/projects/{{ $project->id }}">
+                        {{ $project->title }} 
+                    </a>
+                </li>
 
-        @endforeach 
-        
-    </ul>
+            @endforeach 
+            
+        </ul>
+    </div>
 
 </body>
 

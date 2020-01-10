@@ -13,19 +13,22 @@
             {{ csrf_field() }}
             <div class="field">
                 <div class="control">
-                <input type="text" name="title" placeholder="Project title" class="input is-primary">
+                <input type="text" name="title" placeholder="Project title" class="input {{ $errors->has('title') ? 'is-danger' : '' }}" value="{{ old('title') }}">
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                <textarea name="description" placeholder="Project Description" class="textarea is-primary"></textarea>
+                <textarea name="description" placeholder="Project Description" class="textarea {{ $errors->has('description') ? 'is-danger' : '' }}">{{ old('description') }}</textarea>
                 </div>
             </div>
 
             <div class="control">
                 <button type="submit" class="button is-primary">Create Project</button>
             </div>
+
+            @include ('errors')
+
         </form>
     </div>
 </body>

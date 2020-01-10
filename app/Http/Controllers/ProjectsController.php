@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 
+use Illuminate\Filesystem\Filesystem;
+
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -25,53 +27,48 @@ class ProjectsController extends Controller
 
     }
     
-    public function show($id)
+    public function show(Filesystem $file)
     {
-        $project = Project::findOrfail($id);
-
-        return view('projects.show',compact('project'));
+    
+        dd($file);
+        // return view('projects.show',compact('project'));
+    
     }
 
-    public function edit($id)
+    
+    public function edit(Project $project)
     {
         
-        $project = Project::findOrfail($id);
-
         return view('projects.edit',compact('project'));
+    
     }
 
-    public function update($id)
+
+    public function update(Project $project)
     {
 
-        $project = Project::findOrfail($id);
-
-        $project->title = request('title');
-
-        $project->description = request('description');
-
-        $project->save();
+        $project->update(request(['title','description']));
 
         return redirect('/projects');
 
     }
 
-    public function destroy($id)
+    public function destroy(Project $project)
     {
 
-        Project::findOrfail($id)->delete();
+        $project->delete();
+
         return redirect('/projects');
 
     }
 
     public function store()
-    {
-        $project = new Project();
-
-        $project->title = request('title');
-
-        $project->description = request('description');
-
-        $project->save();
+    {   
+        request()->validate([
+            'title' => ['required','min:3'],
+            'description' => ['required','min:10']
+        ]);
+        Project::create(request(['title','description']));
 
         return redirect('/projects');
 

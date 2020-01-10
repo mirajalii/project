@@ -11,41 +11,22 @@
 |
 */
 
+use Illuminate\Filesystem\Filesystem;
+
+use App\Example;
+
 Route::get('/', function () {
+
+    dd(app('App\Example'));
+
     return view('welcome');
+
 });
-
-
-/*
-    GET /project (index)
-
-    GET /project/create (create)
-
-    GET /project/1 (show)
-
-    POST /project (store)
-
-    GET /project/1/edit (edit)
-
-    PATCH /project/1 (update)
-
-    DELETE /project/1 (destroy)
-
-*/
 
 Route::resource('projects','ProjectsController');
 
+Route::post('/projects/{project}/tasks','ProjectTasksController@store');
 
-// Route::get('/projects','ProjectsController@index');
+Route::post('/completed-tasks/{task}','CompletedTasksController@store');
 
-// Route::get('/projects/create','ProjectsController@create');
-
-// Route::get('/projects/{project}','ProjectsController@show');
-
-// Route::post('/projects','ProjectsController@store');
-
-// Route::get('/project/{project}/edit','ProjectsController@edit');
-
-// Route::patch('/project/{project}','ProjectsController@update');
-
-// Route::delete('/project/{project}','ProjectsController@delete');
+Route::delete('/completed-tasks/{task}','CompletedTasksController@destroy');
